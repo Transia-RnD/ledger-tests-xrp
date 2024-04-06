@@ -28,42 +28,42 @@ async function main() {
       const type = (element[1] as any).type.toUpperCase()
       const name = convertCamelToScreamingSnake(element[0] as string)
       const hex = toPaddedHexString((element[1] as any).nth)
-      console.log(`#define XAH_${type}_${name}     ${hex}`)
+      console.log(`#define XRP_${type}_${name}     ${hex}`)
     }
     if ((element[1] as any).type === 'UInt16') {
       // console.log(element)
       const type = (element[1] as any).type.toUpperCase()
       const name = convertCamelToScreamingSnake(element[0] as string)
       const hex = toPaddedHexString((element[1] as any).nth)
-      console.log(`#define XAH_${type}_${name}     ${hex}`)
+      console.log(`#define XRP_${type}_${name}     ${hex}`)
     }
     if ((element[1] as any).type === 'UInt32') {
       // console.log(element)
       const type = (element[1] as any).type.toUpperCase()
       const name = convertCamelToScreamingSnake(element[0] as string)
       const hex = toPaddedHexString((element[1] as any).nth)
-      console.log(`#define XAH_${type}_${name}     ${hex}`)
+      console.log(`#define XRP_${type}_${name}     ${hex}`)
     }
     if ((element[1] as any).type === 'UInt64') {
       // console.log(element)
       const type = (element[1] as any).type.toUpperCase()
       const name = convertCamelToScreamingSnake(element[0] as string)
       const hex = toPaddedHexString((element[1] as any).nth)
-      console.log(`#define XAH_${type}_${name}     ${hex}`)
+      console.log(`#define XRP_${type}_${name}     ${hex}`)
     }
     if ((element[1] as any).type === 'Hash128') {
       // console.log(element)
       const type = (element[1] as any).type.toUpperCase()
       const name = convertCamelToScreamingSnake(element[0] as string)
       const hex = toPaddedHexString((element[1] as any).nth)
-      console.log(`#define XAH_${type}_${name}     ${hex}`)
+      console.log(`#define XRP_${type}_${name}     ${hex}`)
     }
     if ((element[1] as any).type === 'Hash160') {
       // console.log(element)
       const type = (element[1] as any).type.toUpperCase()
       const name = convertCamelToScreamingSnake(element[0] as string)
       const hex = toPaddedHexString((element[1] as any).nth)
-      console.log(`#define XAH_${type}_${name}     ${hex}`)
+      console.log(`#define XRP_${type}_${name}     ${hex}`)
     }
     if (
       (element[1] as any).type === 'Hash256' &&
@@ -74,7 +74,7 @@ async function main() {
       const type = (element[1] as any).type.toUpperCase()
       const name = convertCamelToScreamingSnake(element[0] as string)
       const hex = toPaddedHexString((element[1] as any).nth)
-      console.log(`#define XAH_${type}_${name}     ${hex}`)
+      console.log(`#define XRP_${type}_${name}     ${hex}`)
     }
     if (
       (element[1] as any).type === 'Amount' &&
@@ -85,40 +85,40 @@ async function main() {
       const type = (element[1] as any).type.toUpperCase()
       const name = convertCamelToScreamingSnake(element[0] as string)
       const hex = toPaddedHexString((element[1] as any).nth)
-      console.log(`#define XAH_${type}_${name}     ${hex}`)
+      console.log(`#define XRP_${type}_${name}     ${hex}`)
     }
     if ((element[1] as any).type === 'Blob') {
       // console.log(element)
       const name = convertCamelToScreamingSnake(element[0] as string)
       const hex = toPaddedHexString((element[1] as any).nth)
-      console.log(`#define XAH_VL_${name}     ${hex}`)
+      console.log(`#define XRP_VL_${name}     ${hex}`)
     }
     if ((element[1] as any).type === 'AccountID') {
       // console.log(element)
       const name = convertCamelToScreamingSnake(element[0] as string)
       const hex = toPaddedHexString((element[1] as any).nth)
-      console.log(`#define XAH_ACCOUNT_${name}     ${hex}`)
+      console.log(`#define XRP_ACCOUNT_${name}     ${hex}`)
     }
     if ((element[1] as any).type === 'Vector256') {
       // console.log(element)
       const type = (element[1] as any).type.toUpperCase()
       const name = convertCamelToScreamingSnake(element[0] as string)
       const hex = toPaddedHexString((element[1] as any).nth)
-      console.log(`#define XAH_${type}_${name}     ${hex}`)
+      console.log(`#define XRP_${type}_${name}     ${hex}`)
     }
     if ((element[1] as any).type === 'STObject') {
       // console.log(element)
       const type = (element[1] as any).type.toUpperCase()
       const name = convertCamelToScreamingSnake(element[0] as string)
       const hex = toPaddedHexString((element[1] as any).nth)
-      console.log(`#define XAH_${type}_${name}     ${hex}`)
+      console.log(`#define XRP_${type}_${name}     ${hex}`)
     }
     if ((element[1] as any).type === 'STArray') {
       // console.log(element)
       const type = (element[1] as any).type.toUpperCase()
       const name = convertCamelToScreamingSnake(element[0] as string)
       const hex = toPaddedHexString((element[1] as any).nth)
-      console.log(`#define XAH_${type}_${name}     ${hex}`)
+      console.log(`#define XRP_${type}_${name}     ${hex}`)
     }
   }
 }

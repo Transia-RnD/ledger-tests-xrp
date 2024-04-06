@@ -1,0 +1,15 @@
+{
+    "TransactionType": "AMMCreate",
+    "Account": "OWN_ADDR",
+    "Fee": "15",
+    "Flags": 0,
+    "Amount": "250",
+    "Amount2": {
+        "currency": "USD",
+        "issuer": "rBKz5MC2iXdoS3XgnNSYmF69K1Yo4NS3Ws",
+        "value": "250"
+    },
+    "TradingFee": 12,
+    "Sequence": 3,
+    "SigningPubKey": "OWN_PUBKEY"
+}

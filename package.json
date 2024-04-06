@@ -12,8 +12,13 @@
   "dependencies": {
     "@ledgerhq/hw-app-xrp": "^6.28.0",
     "@ledgerhq/hw-transport-node-speculos": "^6.28.0",
-    "@transia/hooks-toolkit": "^1.0.8",
-    "@transia/xrpl": "^2.7.3-alpha.19"
+    "@types/chai": "^4.3.14",
+    "@types/lodash": "^4.17.0",
+    "chai": "^5.1.0",
+    "dotenv": "^16.4.5",
+    "lodash": "^4.17.21",
+    "winston": "^3.13.0",
+    "xrpl": "^3.0.0"
   },
   "devDependencies": {
     "@tsconfig/node16": "^1.0.3",

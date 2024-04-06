@@ -4,16 +4,15 @@ import {
   teardownLedger,
   testTransaction,
 } from '../../dist/npm/src'
-// xrpl-helpers
 import {
   XrplIntegrationTestContext,
   setupClient,
   teardownClient,
-} from '@transia/hooks-toolkit/dist/npm/src/libs/xrpl-helpers'
+} from '../../dist/npm/src/xrpl-helpers/setup'
+import { close } from '../../dist/npm/src/xrpl-helpers/tools'
+// xrpl-helpers
 
-// Router: ACCEPT: success
-
-describe('Payment', () => {
+describe('AMMCreate', () => {
   let ledgerContext: LedgerTestContext
   let testContext: XrplIntegrationTestContext
 
@@ -26,11 +25,14 @@ describe('Payment', () => {
     teardownLedger(ledgerContext)
   })
 
-  it('payment - basic', async () => {
-    await testTransaction(
+  it('amm create - basic', async () => {
+    const txBlob = await testTransaction(
       testContext,
       ledgerContext,
-      'test/fixtures/01-payment/01-basic.json'
+      'test/fixtures/XX-amm-create/01-basic.json'
     )
+    const response = await testContext.client.submit(txBlob)
+    expect(response.result.engine_result).toMatch('tesSUCCESS')
+    await close(testContext.client)
   })
 })

@@ -1,16 +1,11 @@
 import fs from 'fs'
 import util from 'util'
-import { encode } from '@transia/xrpl'
+import { encode } from 'xrpl'
 import SpeculosTransport from '@ledgerhq/hw-transport-node-speculos'
 import Xrp from '@ledgerhq/hw-app-xrp'
 import { DeviceData, LedgerTestContext } from './types'
-import {
-  XrplIntegrationTestContext,
-  balance,
-  fund,
-  ICXRP,
-  prepareTransactionV3,
-} from '@transia/hooks-toolkit/dist/npm/src/libs/xrpl-helpers'
+import { balance, fund, ICXRP } from './xrpl-helpers/tools'
+import { XrplIntegrationTestContext } from './xrpl-helpers/setup'
 
 const apduPort = 40000
 
@@ -66,7 +61,8 @@ export async function testTransaction(
   // clear fields
   delete transactionJSON.Fee
   delete transactionJSON.Sequence
-  await prepareTransactionV3(testContext.client, transactionJSON)
+  console.log(transactionJSON)
+
   const preparedTx = await testContext.client.autofill(transactionJSON, 0)
   preparedTx.SigningPubKey = ledgerContext.deviceData.publicKey.toUpperCase()
   // if (preparedTx.Flags === 0) {

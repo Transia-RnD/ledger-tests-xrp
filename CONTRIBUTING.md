@@ -47,3 +47,5 @@ Run speculos with
 ```sh
 docker run --rm -it -v $(pwd)/apps:/speculos/apps --publish 40000:40000 --publish 41000:41000 --publish 5001:5001 speculos --display headless --vnc-port 41000 --api-port 5001 --apdu-port 40000 --model nanox --seed "ssbTMHrmEJP7QEQjWJH3a72LQipBM" apps/app.elf
 ```
+
+docker run --detach --rm --name rippled-service -p 6006:6006 rippleci/rippled:2.0.0-b4 /opt/ripple/bin/rippled -a --conf /opt/ripple/etc/rippled.cfg
