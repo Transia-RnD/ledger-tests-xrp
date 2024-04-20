@@ -1,0 +1,18 @@
+{
+    "TransactionType": "XChainModifyBridge",
+    "Account": "OWN_ADDR",
+    "Fee": "15",
+    "Flags": 0,
+    "XChainBridge": {
+        "LockingChainDoor": "ra7Zr8ddy9tB88RaXL8B87YkqhEJG2vkAJ",
+        "LockingChainIssue": {
+            "currency": "XRP"
+        },
+        "IssuingChainDoor": "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh",
+        "IssuingChainIssue": {
+            "currency": "XRP"
+        }
+    },
+    "SignatureReward": "300",
+    "SigningPubKey": "OWN_PUBKEY"
+}

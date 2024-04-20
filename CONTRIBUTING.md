@@ -4,6 +4,8 @@
 
 `xrpld-netgen up:standalone --protocol=xrpl --network_id=1`
 
+https://github.com/XRPLF/xrpl.js/blob/main/packages/xrpl/test/integration/transactions/xchainAddAccountCreateAttestation.test.ts
+
 ## Building XRP Ledger App
 
 Resources:

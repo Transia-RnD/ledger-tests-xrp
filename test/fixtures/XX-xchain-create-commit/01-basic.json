@@ -1,0 +1,10 @@
+{
+    "TransactionType": "XChainAccountCreateCommit",
+    "Account": "OWN_ADDR",
+    "Fee": "15",
+    "Flags": 0,
+    "XChainBridge": "7CEA6209901DB48D0F5A8DE55C37CF1446795C1FA5EF3E57AA8B5C7B7212E7A5",
+    "Amount": "10000000",
+    "SignatureReward": "300",
+    "SigningPubKey": "OWN_PUBKEY"
+}

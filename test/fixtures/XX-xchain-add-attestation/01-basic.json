@@ -1,0 +1,18 @@
+{
+    "TransactionType": "XChainAddAccountCreateAttestation",
+    "Account": "OWN_ADDR",
+    "Fee": "15",
+    "Flags": 0,
+    "XChainBridge": "7CEA6209901DB48D0F5A8DE55C37CF1446795C1FA5EF3E57AA8B5C7B7212E7A5",
+    "OtherChainSource": "",
+    "Amount": "1000000",
+    "WasLockingChainSend": 1,
+    "XChainClaimID": 0,
+    "Destination": "",
+    "SignatureReward": "300",
+    "PublicKey": "",
+    "Signature": "",
+    "AttestationRewardAccount": "",
+    "AttestationSignerAccount": "",
+    "SigningPubKey": "OWN_PUBKEY"
+}

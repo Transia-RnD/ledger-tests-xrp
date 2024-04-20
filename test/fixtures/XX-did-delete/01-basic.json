@@ -1,0 +1,6 @@
+{
+    "TransactionType": "DIDDelete",
+    "Account": "OWN_ADDR",
+    "Flags": 0,
+    "SigningPubKey": "OWN_PUBKEY"
+}
