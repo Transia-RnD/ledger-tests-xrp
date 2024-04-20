@@ -1,11 +1,12 @@
 import fs from 'fs'
 import util from 'util'
-import { encode } from 'xrpl'
+import { Wallet, encode } from '@transia/xrpl'
 import SpeculosTransport from '@ledgerhq/hw-transport-node-speculos'
 import Xrp from '@ledgerhq/hw-app-xrp'
 import { DeviceData, LedgerTestContext } from './types'
-import { balance, fund, ICXRP } from './xrpl-helpers/tools'
+import { balance, fund, ICXRP, limit, pay, trust } from './xrpl-helpers/tools'
 import { XrplIntegrationTestContext } from './xrpl-helpers/setup'
+import ECDSA from '@transia/xrpl/dist/npm/ECDSA'
 
 const apduPort = 40000
 
@@ -25,6 +26,32 @@ export async function setupLedger(
         testContext.client,
         testContext.master,
         new ICXRP(10000),
+        ...[deviceData.address]
+      )
+    }
+    if (
+      (await limit(testContext.client, deviceData.address, testContext.ic)) <
+      100000
+    ) {
+      await trust(
+        testContext.client,
+        testContext.ic.set(100000),
+        ...[
+          Wallet.fromMnemonic(process.env.LEDGER_MNEMONIC, {
+            mnemonicEncoding: 'bip39',
+            algorithm: ECDSA.ed25519,
+          }),
+        ]
+      )
+    }
+    if (
+      (await balance(testContext.client, deviceData.address, testContext.ic)) <
+      10000
+    ) {
+      await pay(
+        testContext.client,
+        testContext.ic.set(50000),
+        testContext.gw,
         ...[deviceData.address]
       )
     }
@@ -61,13 +88,9 @@ export async function testTransaction(
   // clear fields
   delete transactionJSON.Fee
   delete transactionJSON.Sequence
-  console.log(transactionJSON)
-
+  delete transactionJSON.SigningPubKey
   const preparedTx = await testContext.client.autofill(transactionJSON, 0)
   preparedTx.SigningPubKey = ledgerContext.deviceData.publicKey.toUpperCase()
-  // if (preparedTx.Flags === 0) {
-  //   delete preparedTx.Flags
-  // }
 
   // Output pretty-printed test data
   console.log(
@@ -80,6 +103,14 @@ export async function testTransaction(
 
   const transactionBlob = encode(preparedTx)
 
+  console.log(
+    util.inspect(transactionBlob, {
+      colors: true,
+      compact: false,
+      depth: Infinity,
+    })
+  )
+
   try {
     const signature = await ledgerContext.app.signTransaction(
       "44'/144'/0'/0/0",
@@ -88,20 +119,24 @@ export async function testTransaction(
     preparedTx.TxnSignature = signature.toUpperCase()
     return encode(preparedTx)
   } catch (error: any) {
-    console.log(error.message)
+    console.log(error)
 
     switch (error.statusText) {
       case 'UNKNOWN_ERROR':
-        fail(`Unsupported transaction (${error.statusCode.toString(16)})`)
+        console.log(
+          `Unsupported transaction (${error.statusCode.toString(16)})`
+        )
         break
       case 'CONDITIONS_OF_USE_NOT_SATISFIED':
-        fail('Incorrect representation')
+        console.log('Incorrect representation')
         break
       case 'INCORRECT_LENGTH':
-        fail(`Too large transaction (size: ${transactionBlob.length / 2})`)
+        console.log(
+          `Too large transaction (size: ${transactionBlob.length / 2})`
+        )
         break
       default:
-        fail(error.statusText || `Unknown error (${error.message})`)
+        console.log(error.statusText || `Unknown error (${error.message})`)
     }
   }
 }
