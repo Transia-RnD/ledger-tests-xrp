@@ -1,26 +1,27 @@
 import fs from 'fs'
 import util from 'util'
-import { Wallet, encode } from '@transia/xrpl'
+import { Wallet, encode } from 'xrpl'
 import SpeculosTransport from '@ledgerhq/hw-transport-node-speculos'
 import Xrp from '@ledgerhq/hw-app-xrp'
 import { DeviceData, LedgerTestContext } from './types'
 import { balance, fund, ICXRP, limit, pay, trust } from './xrpl-helpers/tools'
 import { XrplIntegrationTestContext } from './xrpl-helpers/setup'
-import ECDSA from '@transia/xrpl/dist/npm/ECDSA'
+import ECDSA from 'xrpl/dist/npm/ECDSA'
+import { appLogger } from './logger'
 
 const apduPort = 40000
 
 export async function setupLedger(
   testContext: XrplIntegrationTestContext
 ): Promise<LedgerTestContext> {
-  console.log('Connecting to device...')
+  appLogger.info('Connecting to device...')
 
   try {
     const transport = await SpeculosTransport.open({ apduPort })
     const xrp = new Xrp(transport)
     const deviceData = await xrp.getAddress("44'/144'/0'/0/0")
-    console.log(`Got address: ${deviceData.address}`)
-    console.log('Connection established!')
+    appLogger.info(`Got address: ${deviceData.address}`)
+    appLogger.info('Connection established!')
     if ((await balance(testContext.client, deviceData.address)) < 1000) {
       await fund(
         testContext.client,
@@ -61,7 +62,7 @@ export async function setupLedger(
       deviceData: deviceData as DeviceData,
     } as LedgerTestContext
   } catch (error: any) {
-    console.error(
+    appLogger.error(
       `Failed to establish connection to device! (${
         error.message || 'Unknown reason'
       })`
@@ -93,7 +94,7 @@ export async function testTransaction(
   preparedTx.SigningPubKey = ledgerContext.deviceData.publicKey.toUpperCase()
 
   // Output pretty-printed test data
-  console.log(
+  appLogger.info(
     util.inspect(preparedTx, {
       colors: true,
       compact: false,
@@ -103,7 +104,7 @@ export async function testTransaction(
 
   const transactionBlob = encode(preparedTx)
 
-  console.log(
+  appLogger.info(
     util.inspect(transactionBlob, {
       colors: true,
       compact: false,
@@ -119,24 +120,24 @@ export async function testTransaction(
     preparedTx.TxnSignature = signature.toUpperCase()
     return encode(preparedTx)
   } catch (error: any) {
-    console.log(error)
+    appLogger.error(error)
 
     switch (error.statusText) {
       case 'UNKNOWN_ERROR':
-        console.log(
+        appLogger.error(
           `Unsupported transaction (${error.statusCode.toString(16)})`
         )
         break
       case 'CONDITIONS_OF_USE_NOT_SATISFIED':
-        console.log('Incorrect representation')
+        appLogger.error('Incorrect representation')
         break
       case 'INCORRECT_LENGTH':
-        console.log(
+        appLogger.error(
           `Too large transaction (size: ${transactionBlob.length / 2})`
         )
         break
       default:
-        console.log(error.statusText || `Unknown error (${error.message})`)
+        appLogger.error(error.statusText || `Unknown error (${error.message})`)
     }
   }
 }
@@ -154,7 +155,7 @@ export async function blobTransaction(
   const transactionJSON = JSON.parse(fileContent)
 
   // Output pretty-printed test data
-  console.log(
+  appLogger.debug(
     util.inspect(transactionJSON, {
       colors: true,
       compact: false,

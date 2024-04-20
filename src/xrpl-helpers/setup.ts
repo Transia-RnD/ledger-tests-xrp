@@ -99,7 +99,6 @@ export async function setupClient(
   }
   return connectWithRetry(context.client)
     .then(async () => {
-      console.log('HERE')
       await fundSystem(context.client, context.master, context.ic)
       return context
     })

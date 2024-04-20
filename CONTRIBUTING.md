@@ -1,13 +1,17 @@
-# Ledger XAH App Contributing
+# Ledger XRP App Contributing
 
-## Building XAH Ledger App
+### Run Standalone
+
+`xrpld-netgen up:standalone --protocol=xrpl --network_id=1`
+
+## Building XRP Ledger App
 
 Resources:
 
 - https://github.com/LedgerHQ/app-boilerplate
 - https://developers.ledger.com/docs/embedded-app/build-load/
 
-Clone App-XAH:
+Clone App-XRP:
 ```sh
 git clone git@github.com:Transia-RnD/app-xah.git
 ```
@@ -38,14 +42,13 @@ then
 docker build -t speculos:latest .
 ```
 
-## Run App-XAH with Speculos
+## Run App-XRP with Speculos
 
-Build the App-XAH using the Ledger VS Code extension & copy the bin/app.elf into the speculos/apps directory
-
+Build the App-XRP using the Ledger VS Code extension & copy the bin/app.elf into the speculos/apps directory
 
 Run speculos with
 ```sh
-docker run --rm -it -v $(pwd)/apps:/speculos/apps --publish 40000:40000 --publish 41000:41000 --publish 5001:5001 speculos --display headless --vnc-port 41000 --api-port 5001 --apdu-port 40000 --model nanox --seed "ssbTMHrmEJP7QEQjWJH3a72LQipBM" apps/app.elf
+docker run --rm -it -v $(pwd)/apps:/speculos/apps --publish 40000:40000 --publish 41000:41000 --publish 5001:5001 speculos --display headless --vnc-port 41000 --api-port 5001 --apdu-port 40000 --model nanox --seed "glory promote mansion idle axis finger extra february uncover one trip resource lawn turtle enact monster seven myth punch hobby comfort wild raise skin" apps/app.elf
 ```
 
-docker run --detach --rm --name rippled-service -p 6006:6006 rippleci/rippled:2.0.0-b4 /opt/ripple/bin/rippled -a --conf /opt/ripple/etc/rippled.cfg
+Then open the browser: http://127.0.0.1:5000 or http://127.0.0.1:5001

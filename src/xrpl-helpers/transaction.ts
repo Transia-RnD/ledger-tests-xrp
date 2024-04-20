@@ -33,7 +33,7 @@ export async function serverStateRPC(client: Client): Promise<BaseResponse> {
   const request = {
     command: 'server_state',
   }
-  // @ts-expect-error -- ignore
+  // @ts-expect-error -- fix this
   return await client.request(request)
 }
 
@@ -153,7 +153,7 @@ export async function submitTransaction({
 }): Promise<SubmitResponse> {
   let response: SubmitResponse
   try {
-    // @ts-expect-error -- ignore
+    // @ts-expect-error -- fix this
     const preparedTx = await client.autofill(transaction)
 
     response = await client.submit(preparedTx, { wallet })
@@ -170,7 +170,7 @@ export async function submitTransaction({
       // eslint-disable-next-line no-await-in-loop, no-promise-executor-return -- We are waiting on retries
       await new Promise((resolve) => setTimeout(resolve, retry.delayMs))
       // eslint-disable-next-line no-await-in-loop -- We are retrying in a loop on purpose
-      // @ts-expect-error -- ignore
+      // @ts-expect-error -- fix this
       response = await client.submit(transaction, { wallet })
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -317,7 +317,7 @@ export async function testTransaction(
     appLogger.error('The response was: ', JSON.stringify(response))
   }
 
-  if (retry?.hardFail) {
+  if (response.result.engine_result !== 'tesSUCCESS' && retry?.hardFail) {
     throw Error(response.result.engine_result_message)
   }
 
@@ -340,7 +340,7 @@ export async function prodTransactionAndWait(
 ): Promise<TxResponse> {
   // sign/submit the transaction
 
-  // @ts-expect-error -- ignore
+  // @ts-expect-error -- fix this
   const response = await client.submitAndWait(transaction, {
     autofill: true,
     wallet: wallet,

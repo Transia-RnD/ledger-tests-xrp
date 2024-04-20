@@ -477,11 +477,11 @@ export async function rpc(
   ctx: Client,
   json: Record<string, unknown>
 ): Promise<void> {
-  // @ts-expect-error -- ignore
+  // @ts-expect-error -- fix this
   ctx.request(json as BaseRequest)
 }
 
 export async function close(ctx: Client): Promise<void> {
-  // @ts-expect-error -- ignore
+  // @ts-expect-error -- fix this
   await ctx.request(LEDGER_ACCEPT_REQUEST)
 }
