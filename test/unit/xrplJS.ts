@@ -8,10 +8,6 @@ import {
   TrustSetFlags,
 } from 'xrpl'
 
-export enum ClaimRewardFlags {
-  tfOptOut = 1,
-}
-
 export enum AccountAsfStringFlags {
   asfPasswordSpent = 'Password Spent',
   asfRequireDest = 'Require Dest',
@@ -58,12 +54,6 @@ export enum OfferCreateStringFlags {
 export enum PaymentChannelClaimStringFlags {
   tfRenew = 'Renew',
   tfClose = 'Close',
-}
-
-export enum SetHookStringFlags {
-  hsfOverride = 'Override',
-  hsfNSDelete = 'Namespace Delete',
-  hsfCollect = 'Collect',
 }
 
 export enum TrustSetStringFlags {
