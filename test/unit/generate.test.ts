@@ -1,4 +1,4 @@
-import { convertHexToString, decode, rippleTimeToUnixTime } from '@transia/xrpl'
+import { convertHexToString, decode, rippleTimeToUnixTime } from 'xrpl'
 import { blobTransaction } from '../../dist/npm/src'
 // xrpl-helpers
 import { saveBinary } from '../tools'
@@ -8,13 +8,10 @@ import util from 'util'
 import {
   accountRootFlagsToString,
   accountSetFlagsToString,
-  claimRewardFlagsToString,
   offerCreateFlagsToString,
   paymentChannelClaimFlagsToString,
   paymentFlagsToString,
-  setHookFlagsToString,
   trustSetFlagsToString,
-  uriTokenMintFlagsToString,
 } from './xrplJS'
 
 const readdir = util.promisify(fs.readdir)
@@ -121,12 +118,6 @@ function formatMemoFormat(i: number, element: any) {
 function formatMemoType(i: number, element: any) {
   return `Memo Type [${i}]; ${convertHexToString(element.MemoType)}\n`
 }
-function formatParamName(i: number, element: any) {
-  return `Hook Param Name [${i}]; ${element.HookParameterName.toLowerCase()}\n`
-}
-function formatParamValue(i: number, element: any) {
-  return `Hook Param Value [${i}]; ${element.HookParameterValue.toLowerCase()}\n`
-}
 function formatSignerPK(i: number, element: any) {
   return `Sig.PubKey [${i}]; ${element.SigningPubKey.toLowerCase()}\n`
 }
@@ -145,37 +136,6 @@ function formatSignerAccount(i: number, element: any) {
 
 function formatSignerWeight(i: number, element: any) {
   return `Signer Weight [${i}]; ${element.SignerWeight}\n`
-}
-
-function formatCreateCode(i: number, element: any) {
-  if (element.CreateCode === '') {
-    return `Create Code [${i}]; [empty]\n`
-  }
-  if (element.CreateCode.length >= 124) {
-    return `Create Code [${i}]; ${element.CreateCode.slice(
-      0,
-      124
-    ).toLowerCase()}...\n`
-  }
-  return `Create Code [${i}]; ${element.CreateCode.toLowerCase()}\n`
-}
-function formatHookNamespace(i: number, element: any) {
-  return `Hook Namespace [${i}]; ${element.HookNamespace.toLowerCase()}\n`
-}
-function formatHookOn(i: number, element: any) {
-  return `Hook On [${i}]; ${element.HookOn.toLowerCase()}\n`
-}
-function formatHookApiVersion(i: number, element: any) {
-  return `Hook Api Version [${i}]; ${element.HookApiVersion}\n`
-}
-function formatHookFlags(i: number, element: any) {
-  return `Flags [${i}]; ${setHookFlagsToString(element.Flags)}\n`
-}
-function formatHookHash(i: number, element: any) {
-  return `Hook Hash [${i}]; ${element.HookHash.toLowerCase()}\n`
-}
-function formatAuthorize(i: number, element: any) {
-  return `Authorize [${i}]; ${formatAccount(element.Authorize)}\n`
 }
 
 function formatTT(tt: string) {
@@ -224,8 +184,6 @@ function formatTT(tt: string) {
       return 'Set Trust Line'
     case 'DeleteAccount':
       return 'Delete Account'
-    case 'SetHook':
-      return 'Set Hook'
     case 'NFTokenMint':
       return 'NFToken Mint'
     case 'NFTokenBurn':
@@ -236,24 +194,40 @@ function formatTT(tt: string) {
       return 'NFToken Cancel Offer'
     case 'NFTokenAcceptOffer':
       return 'NFToken Accept Offer'
-    case 'URITokenMint':
-      return 'URIToken Mint'
-    case 'URITokenBurn':
-      return 'URIToken Burn'
-    case 'URITokenBuy':
-      return 'URIToken Buy'
-    case 'URITokenCreateSellOffer':
-      return 'URIToken Create Offer'
-    case 'URITokenCancelSellOffer':
-      return 'URIToken Cancel Offer'
-    case 'GenesisMint':
-      return 'Genesis Mint'
-    case 'Import':
-      return 'Import'
-    case 'ClaimReward':
-      return 'Claim Reward'
-    case 'Invoke':
-      return 'Invoke'
+    case 'Clawback':
+      return 'Clawback'
+    case 'AMMCreate':
+      return 'AMM Create'
+    case 'AMMDeposit':
+      return 'AMM Deposit'
+    case 'AMMWithdraw':
+      return 'AMM Withdraw'
+    case 'AMMVote':
+      return 'AMM Vote'
+    case 'AMMBid':
+      return 'AMM Bid'
+    case 'AMMDelete':
+      return 'AMM Delete'
+    case 'XChainCreateClaimID':
+      return 'XChain Create Claim ID'
+    case 'XChainCommit':
+      return 'XChain Commit'
+    case 'XChainClaim':
+      return 'XChain Claim'
+    case 'XChainAccountCreateCommit':
+      return 'XChain Account Create Commit'
+    case 'XChainAddClaimAttestation':
+      return 'XChain Add Claim Attestation'
+    case 'XChainAddAccountCreateAttestation':
+      return 'XChain Add Account Create Attestation'
+    case 'XChainModifyBridge':
+      return 'XChain Modify Bridge'
+    case 'XChainCreateBridge':
+      return 'XChain Create Bridge'
+    case 'DidSet':
+      return 'Did Set'
+    case 'DidDelete':
+      return 'Did Delete'
     default:
       return 'Unknown'
   }
@@ -431,18 +405,6 @@ async function processFixtures(address: string, publicKey: string) {
                     )
                     textFile.write(`Flags; ${flagsString}\n`)
                   }
-                  if (jsonData.TransactionType === 'URITokenMint') {
-                    const flagsString = uriTokenMintFlagsToString(
-                      formattedValue as number
-                    )
-                    textFile.write(`Flags; ${flagsString}\n`)
-                  }
-                  if (jsonData.TransactionType === 'ClaimReward') {
-                    const flagsString = claimRewardFlagsToString(
-                      formattedValue as number
-                    )
-                    textFile.write(`Flags; ${flagsString}\n`)
-                  }
                   break
                 case 'SetFlag':
                   if (jsonData.TransactionType === 'AccountSet') {
@@ -485,64 +447,11 @@ async function processFixtures(address: string, publicKey: string) {
                     if (element.MemoType) {
                       textFile.write(formatMemoType(_i, element))
                     }
-                    if (element.MemoFormat) {
-                      textFile.write(formatMemoFormat(_i, element))
-                    }
                     if (element.MemoData) {
                       textFile.write(formatMemoData(_i, element))
                     }
-                  }
-                  break
-                case 'Hooks':
-                  const hooks = value as any[]
-                  for (let i = 0; i < hooks.length; i++) {
-                    const element = hooks[i].Hook
-                    const _i = i + 1
-                    if (element.CreateCode !== undefined) {
-                      textFile.write(formatCreateCode(_i, element))
-                    }
-                    if (element.HookHash) {
-                      textFile.write(formatHookHash(_i, element))
-                    }
-                    if (element.HookNamespace) {
-                      textFile.write(formatHookNamespace(_i, element))
-                    }
-                    if (element.HookOn) {
-                      textFile.write(formatHookOn(_i, element))
-                    }
-                    if (element.HookApiVersion !== undefined) {
-                      textFile.write(formatHookApiVersion(_i, element))
-                    }
-                    if (element.Flags) {
-                      textFile.write(formatHookFlags(_i, element))
-                    }
-                    if (element.HookParameters) {
-                      const hookParams = element.HookParameters
-                      for (let i = 0; i < hookParams.length; i++) {
-                        const _element = hookParams[i].HookParameter
-                        const _i = i + 1
-                        if (_element.HookParameterName) {
-                          textFile.write(formatParamName(_i, _element))
-                        }
-                        if (_element.HookParameterValue) {
-                          textFile.write(formatParamValue(_i, _element))
-                        }
-                      }
-                      break
-                    }
-                    if (element.HookGrants) {
-                      const hookParams = element.HookGrants
-                      for (let i = 0; i < hookParams.length; i++) {
-                        const _element = hookParams[i].HookGrant
-                        const _i = i + 1
-                        if (_element.HookHash) {
-                          textFile.write(formatHookHash(_i, _element))
-                        }
-                        if (_element.Authorize) {
-                          textFile.write(formatAuthorize(_i, _element))
-                        }
-                      }
-                      break
+                    if (element.MemoFormat) {
+                      textFile.write(formatMemoFormat(_i, element))
                     }
                   }
                   break
@@ -551,24 +460,11 @@ async function processFixtures(address: string, publicKey: string) {
                   for (let i = 0; i < sentrier.length; i++) {
                     const element = sentrier[i].SignerEntry
                     const _i = i + 1
-                    if (element.Account) {
-                      textFile.write(formatSignerAccount(_i, element))
-                    }
                     if (element.SignerWeight) {
                       textFile.write(formatSignerWeight(_i, element))
                     }
-                  }
-                  break
-                case 'HookParameters':
-                  const hookParams = value as any[]
-                  for (let i = 0; i < hookParams.length; i++) {
-                    const element = hookParams[i].HookParameter
-                    const _i = i + 1
-                    if (element.HookParameterName) {
-                      textFile.write(formatParamName(_i, element))
-                    }
-                    if (element.HookParameterValue) {
-                      textFile.write(formatParamValue(_i, element))
+                    if (element.Account) {
+                      textFile.write(formatSignerAccount(_i, element))
                     }
                   }
                   break
@@ -577,14 +473,14 @@ async function processFixtures(address: string, publicKey: string) {
                   for (let i = 0; i < signers.length; i++) {
                     const element = signers[i].Signer
                     const _i = i + 1
-                    if (element.Account) {
-                      textFile.write(formatSignerAccount(_i, element))
-                    }
                     if (element.SigningPubKey) {
                       textFile.write(formatSignerPK(_i, element))
                     }
                     if (element.TxnSignature) {
                       textFile.write(formatSignerTxn(_i, element))
+                    }
+                    if (element.Account) {
+                      textFile.write(formatSignerAccount(_i, element))
                     }
                   }
                   break
@@ -597,7 +493,6 @@ async function processFixtures(address: string, publicKey: string) {
                 case 'CheckID':
                 case 'EscrowID':
                 case 'OfferID':
-                case 'URITokenID':
                   textFile.write(
                     `${key.split('ID')[0]} ID; ${(
                       formattedValue as string
@@ -654,6 +549,11 @@ async function processFixtures(address: string, publicKey: string) {
                     `Domain; ${convertHexToString(formattedValue as string)}\n`
                   )
                   break
+                case 'URI':
+                  textFile.write(
+                    `URI; ${convertHexToString(formattedValue as string)}\n`
+                  )
+                  break
                 case 'EmailHash':
                   textFile.write(
                     `Email Hash; ${(formattedValue as string).toLowerCase()}\n`
@@ -674,11 +574,6 @@ async function processFixtures(address: string, publicKey: string) {
                 case 'SettleDelay':
                   textFile.write(
                     `Settle Delay; ${formattedValue as number} s\n`
-                  )
-                  break
-                case 'URI':
-                  textFile.write(
-                    `URI; ${(formattedValue as string).toLowerCase()}\n`
                   )
                   break
                 default:

@@ -5,10 +5,8 @@ import {
   PaymentChannelClaimFlags,
   PaymentFlags,
   PaymentFlagsInterface,
-  SetHookFlags,
   TrustSetFlags,
-  URITokenMintFlags,
-} from '@transia/xrpl'
+} from 'xrpl'
 
 export enum ClaimRewardFlags {
   tfOptOut = 1,
@@ -74,14 +72,6 @@ export enum TrustSetStringFlags {
   tfClearNoRipple = 'Clear No Ripple',
   tfSetFreeze = 'Set Freeze',
   tfClearFreeze = 'Clear Freeze',
-}
-
-export enum URITokenMintStringFlags {
-  tfBurnable = 'Burnable',
-}
-
-export enum ClaimRewardStringFlags {
-  tfOptOut = 'Opt Out',
 }
 
 function isFlagEnabled(Flags: number, checkFlag: number): boolean {
@@ -210,27 +200,6 @@ export function paymentChannelClaimFlagsToString(flags: number): string {
   return flagsString
 }
 
-export function setHookFlagsToString(flags: number): string {
-  let flagsString = ''
-  let count = 0
-  Object.keys(SetHookFlags).forEach((flag: string) => {
-    if (
-      typeof flag === 'string' &&
-      isFlagEnabled(flags, SetHookFlags[flag as keyof typeof SetHookFlags])
-    ) {
-      if (count > 0) {
-        flagsString +=
-          ', ' + SetHookStringFlags[flag as keyof typeof SetHookFlags]
-      } else {
-        flagsString += SetHookStringFlags[flag as keyof typeof SetHookFlags]
-      }
-      count += 1
-    }
-  })
-
-  return flagsString
-}
-
 export function trustSetFlagsToString(flags: number): string {
   let flagsString = ''
   let count = 0
@@ -244,56 +213,6 @@ export function trustSetFlagsToString(flags: number): string {
           ', ' + TrustSetStringFlags[flag as keyof typeof TrustSetFlags]
       } else {
         flagsString += TrustSetStringFlags[flag as keyof typeof TrustSetFlags]
-      }
-      count += 1
-    }
-  })
-
-  return flagsString
-}
-
-export function uriTokenMintFlagsToString(flags: number): string {
-  let flagsString = ''
-  let count = 0
-  Object.keys(URITokenMintFlags).forEach((flag: string) => {
-    if (
-      typeof flag === 'string' &&
-      isFlagEnabled(
-        flags,
-        URITokenMintFlags[flag as keyof typeof URITokenMintFlags]
-      )
-    ) {
-      if (count > 0) {
-        flagsString +=
-          ', ' + URITokenMintStringFlags[flag as keyof typeof URITokenMintFlags]
-      } else {
-        flagsString +=
-          URITokenMintStringFlags[flag as keyof typeof URITokenMintFlags]
-      }
-      count += 1
-    }
-  })
-
-  return flagsString
-}
-
-export function claimRewardFlagsToString(flags: number): string {
-  let flagsString = ''
-  let count = 0
-  Object.keys(ClaimRewardFlags).forEach((flag: string) => {
-    if (
-      typeof flag === 'string' &&
-      isFlagEnabled(
-        flags,
-        ClaimRewardFlags[flag as keyof typeof ClaimRewardFlags]
-      )
-    ) {
-      if (count > 0) {
-        flagsString +=
-          ', ' + ClaimRewardStringFlags[flag as keyof typeof ClaimRewardFlags]
-      } else {
-        flagsString +=
-          ClaimRewardStringFlags[flag as keyof typeof ClaimRewardFlags]
       }
       count += 1
     }
