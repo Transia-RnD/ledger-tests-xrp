@@ -599,6 +599,20 @@ async function processFixtures(address: string, publicKey: string) {
                     textFile.write(`NFToken Offer; ${element.toLowerCase()}\n`)
                   }
                   break
+                case 'NFTokenSellOffer':
+                  textFile.write(
+                    `NFToken Offer; ${(
+                      formattedValue as string
+                    ).toLowerCase()}\n`
+                  )
+                  break
+                case 'NFTokenBuyOffer':
+                  textFile.write(
+                    `NFToken Offer; ${(
+                      formattedValue as string
+                    ).toLowerCase()}\n`
+                  )
+                  break
                 case 'WalletLocator':
                   textFile.write(
                     `Wallet Locator; ${(
