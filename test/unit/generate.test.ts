@@ -8,6 +8,8 @@ import util from 'util'
 import {
   accountRootFlagsToString,
   accountSetFlagsToString,
+  ammDepositFlagsToString,
+  ammWithdrawFlagsToString,
   nftokenCreateOfferFlagsToString,
   nftokenMintFlagsToString,
   offerCreateFlagsToString,
@@ -331,7 +333,13 @@ async function processFixtures(address: string, publicKey: string) {
                 case 'TakerGets':
                 case 'Balance':
                 case 'Amount':
+                case 'Amount2':
                 case 'LimitAmount':
+                case 'NFTokenBrokerFee':
+                case 'LPTokenOut':
+                case 'LPTokenIn':
+                case 'BidMin':
+                case 'BidMax':
                   formattedValue = formatAmount(value as any)
                   break
                 case 'Fee':
@@ -415,6 +423,18 @@ async function processFixtures(address: string, publicKey: string) {
                   }
                   if (jsonData.TransactionType === 'NFTokenCreateOffer') {
                     const flagsString = nftokenCreateOfferFlagsToString(
+                      formattedValue as number
+                    )
+                    textFile.write(`Flags; ${flagsString}\n`)
+                  }
+                  if (jsonData.TransactionType === 'AMMDeposit') {
+                    const flagsString = ammDepositFlagsToString(
+                      formattedValue as number
+                    )
+                    textFile.write(`Flags; ${flagsString}\n`)
+                  }
+                  if (jsonData.TransactionType === 'AMMWithdraw') {
+                    const flagsString = ammWithdrawFlagsToString(
                       formattedValue as number
                     )
                     textFile.write(`Flags; ${flagsString}\n`)
@@ -625,6 +645,121 @@ async function processFixtures(address: string, publicKey: string) {
                     `Settle Delay; ${formattedValue as number} s\n`
                   )
                   break
+                case 'NFTokenBrokerFee':
+                  textFile.write(`NFToken Broker Fee; ${formattedValue}\n`)
+                  if (typeof value === 'object') {
+                    if (
+                      // @ts-expect-error -- ignore
+                      value.currency.length > 3 &&
+                      // @ts-expect-error -- ignore
+                      !value.currency.includes('000000000000000000000000')
+                    ) {
+                      textFile.write(
+                        `Currency; ${formatCurrency(
+                          // @ts-expect-error -- ignore
+                          value.currency as string
+                        )}\n`
+                      )
+                    }
+                    // @ts-expect-error -- ignore
+                    textFile.write(`Issuer; ${formatAccount(value.issuer)}\n`)
+                  }
+                  break
+                case 'Amount2':
+                  textFile.write(`Amount 2; ${formattedValue}\n`)
+                  if (typeof value === 'object') {
+                    if (
+                      // @ts-expect-error -- ignore
+                      value.currency.length > 3 &&
+                      // @ts-expect-error -- ignore
+                      !value.currency.includes('000000000000000000000000')
+                    ) {
+                      textFile.write(
+                        `Currency; ${formatCurrency(
+                          // @ts-expect-error -- ignore
+                          value.currency as string
+                        )}\n`
+                      )
+                    }
+                    // @ts-expect-error -- ignore
+                    textFile.write(`Issuer; ${formatAccount(value.issuer)}\n`)
+                  }
+                  break
+                case 'Asset':
+                  // @ts-expect-error -- ignore
+                  textFile.write(`Asset; ${formattedValue.currency}\n`)
+                  // @ts-expect-error -- ignore
+                  if (formattedValue.issuer) {
+                    textFile.write(
+                      // @ts-expect-error -- ignore
+                      `Issuer; ${formatAccount(formattedValue.issuer)}\n`
+                    )
+                  }
+                  break
+                case 'Asset2':
+                  // @ts-expect-error -- ignore
+                  textFile.write(`Asset 2; ${formattedValue.currency}\n`)
+                  // @ts-expect-error -- ignore
+                  if (formattedValue.issuer) {
+                    textFile.write(
+                      // @ts-expect-error -- ignore
+                      `Issuer; ${formatAccount(formattedValue.issuer)}\n`
+                    )
+                  }
+                  break
+                case 'LPTokenOut':
+                  textFile.write(`LP Token Out; ${formattedValue}\n`)
+                  if (typeof value === 'object') {
+                    if (
+                      // @ts-expect-error -- ignore
+                      value.currency.length > 3 &&
+                      // @ts-expect-error -- ignore
+                      !value.currency.includes('000000000000000000000000')
+                    ) {
+                      textFile.write(
+                        `Currency; ${formatCurrency(
+                          // @ts-expect-error -- ignore
+                          value.currency as string
+                        )}\n`
+                      )
+                    }
+                    // @ts-expect-error -- ignore
+                    textFile.write(`Issuer; ${formatAccount(value.issuer)}\n`)
+                  }
+                  break
+                case 'LPTokenIn':
+                  textFile.write(`LP Token In; ${formattedValue}\n`)
+                  if (typeof value === 'object') {
+                    if (
+                      // @ts-expect-error -- ignore
+                      value.currency.length > 3 &&
+                      // @ts-expect-error -- ignore
+                      !value.currency.includes('000000000000000000000000')
+                    ) {
+                      textFile.write(
+                        `Currency; ${formatCurrency(
+                          // @ts-expect-error -- ignore
+                          value.currency as string
+                        )}\n`
+                      )
+                    }
+                    // @ts-expect-error -- ignore
+                    textFile.write(`Issuer; ${formatAccount(value.issuer)}\n`)
+                  }
+                  break
+                case 'AuthAccounts':
+                  const accounts = value as any[]
+                  for (let i = 0; i < accounts.length; i++) {
+                    const element = accounts[i].AuthAccount
+                    const _i = i + 1
+                    if (element.Account) {
+                      const value = element.Account
+                      textFile.write(
+                        `Account [${_i}]; ${formatAccount(value as any)}\n`
+                      )
+                    }
+                  }
+                  break
                 default:
                   textFile.write(
                     `${key
@@ -641,6 +776,9 @@ async function processFixtures(address: string, publicKey: string) {
                       key === 'TakerGets' ||
                       key === 'Balance' ||
                       key === 'Amount' ||
+                      key === 'Amount2' ||
+                      key === 'BidMin' ||
+                      key === 'BidMax' ||
                       key === 'LimitAmount') &&
                     typeof value === 'object'
                   ) {
