@@ -586,9 +586,9 @@ async function processFixtures(address: string, publicKey: string) {
                     `Message Key; ${(formattedValue as string).toLowerCase()}\n`
                   )
                   break
-                case 'NFTokenIDs':
+                case 'NFTokenOffers':
                   textFile.write(
-                    `NFToken IDs; ${(formattedValue as string[]).length}\n`
+                    `NFToken Offers; ${(formattedValue as string[]).length}\n`
                   )
                   for (
                     let index = 0;
@@ -596,7 +596,7 @@ async function processFixtures(address: string, publicKey: string) {
                     index++
                   ) {
                     const element = (formattedValue as string[])[index]
-                    textFile.write(`NFToken ID; ${element.toLowerCase()}\n`)
+                    textFile.write(`NFToken Offer; ${element.toLowerCase()}\n`)
                   }
                   break
                 case 'WalletLocator':
