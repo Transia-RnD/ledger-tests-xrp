@@ -6,6 +6,8 @@ import {
   PaymentFlags,
   PaymentFlagsInterface,
   TrustSetFlags,
+  NFTokenMintFlags,
+  NFTokenCreateOfferFlags,
   AMMDepositFlags,
   AMMWithdrawFlags,
   XChainModifyBridgeFlags,
@@ -63,6 +65,17 @@ export enum TrustSetStringFlags {
   tfClearNoRipple = 'Clear No Ripple',
   tfSetFreeze = 'Set Freeze',
   tfClearFreeze = 'Clear Freeze',
+}
+
+export enum NFTokenMintStringFlags {
+  tfBurnable = 'Burnable',
+  tfOnlyXRP = 'Only XRP',
+  tfTrustLine = 'Trustline',
+  tfTransferable = 'Transferable',
+}
+
+export enum NFTokenCreateOfferStringFlags {
+  tfSellNFToken = 'Sell',
 }
 
 export enum AmmDepositStringFlags {
@@ -227,6 +240,61 @@ export function trustSetFlagsToString(flags: number): string {
           ', ' + TrustSetStringFlags[flag as keyof typeof TrustSetFlags]
       } else {
         flagsString += TrustSetStringFlags[flag as keyof typeof TrustSetFlags]
+      }
+      count += 1
+    }
+  })
+
+  return flagsString
+}
+
+export function nftokenMintFlagsToString(flags: number): string {
+  let flagsString = ''
+  let count = 0
+  Object.keys(NFTokenMintFlags).forEach((flag: string) => {
+    if (
+      typeof flag === 'string' &&
+      isFlagEnabled(
+        flags,
+        NFTokenMintFlags[flag as keyof typeof NFTokenMintFlags]
+      )
+    ) {
+      if (count > 0) {
+        flagsString +=
+          ', ' + NFTokenMintStringFlags[flag as keyof typeof NFTokenMintFlags]
+      } else {
+        flagsString +=
+          NFTokenMintStringFlags[flag as keyof typeof NFTokenMintFlags]
+      }
+      count += 1
+    }
+  })
+
+  return flagsString
+}
+
+export function nftokenCreateOfferFlagsToString(flags: number): string {
+  let flagsString = ''
+  let count = 0
+  Object.keys(NFTokenCreateOfferFlags).forEach((flag: string) => {
+    if (
+      typeof flag === 'string' &&
+      isFlagEnabled(
+        flags,
+        NFTokenCreateOfferFlags[flag as keyof typeof NFTokenCreateOfferFlags]
+      )
+    ) {
+      if (count > 0) {
+        flagsString +=
+          ', ' +
+          NFTokenCreateOfferStringFlags[
+            flag as keyof typeof NFTokenCreateOfferFlags
+          ]
+      } else {
+        flagsString +=
+          NFTokenCreateOfferStringFlags[
+            flag as keyof typeof NFTokenCreateOfferFlags
+          ]
       }
       count += 1
     }

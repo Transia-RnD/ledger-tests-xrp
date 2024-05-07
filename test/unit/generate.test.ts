@@ -8,6 +8,8 @@ import util from 'util'
 import {
   accountRootFlagsToString,
   accountSetFlagsToString,
+  nftokenCreateOfferFlagsToString,
+  nftokenMintFlagsToString,
   offerCreateFlagsToString,
   paymentChannelClaimFlagsToString,
   paymentFlagsToString,
@@ -147,7 +149,7 @@ function formatTT(tt: string) {
     case 'EscrowFinish':
       return 'Finish Escrow'
     case 'AccountSet':
-      return 'Account Set'
+      return 'Account Setting'
     case 'EscrowCancel':
       return 'Cancel Escrow'
     case 'SetRegularKey':
@@ -405,6 +407,18 @@ async function processFixtures(address: string, publicKey: string) {
                     )
                     textFile.write(`Flags; ${flagsString}\n`)
                   }
+                  if (jsonData.TransactionType === 'NFTokenMint') {
+                    const flagsString = nftokenMintFlagsToString(
+                      formattedValue as number
+                    )
+                    textFile.write(`Flags; ${flagsString}\n`)
+                  }
+                  if (jsonData.TransactionType === 'NFTokenCreateOffer') {
+                    const flagsString = nftokenCreateOfferFlagsToString(
+                      formattedValue as number
+                    )
+                    textFile.write(`Flags; ${flagsString}\n`)
+                  }
                   break
                 case 'SetFlag':
                   if (jsonData.TransactionType === 'AccountSet') {
@@ -506,10 +520,18 @@ async function processFixtures(address: string, publicKey: string) {
                     ).toLowerCase()}\n`
                   )
                   break
+                case 'NFTokenID':
+                  textFile.write(
+                    `NFToken ID; ${(formattedValue as string).toLowerCase()}\n`
+                  )
+                  break
                 case 'Condition':
                   textFile.write(
                     `Condition; ${(formattedValue as string).toLowerCase()}\n`
                   )
+                  break
+                case 'NFTokenTaxon':
+                  textFile.write(`NFToken Taxon; ${formattedValue as string}\n`)
                   break
                 case 'Channel':
                   textFile.write(
@@ -563,6 +585,19 @@ async function processFixtures(address: string, publicKey: string) {
                   textFile.write(
                     `Message Key; ${(formattedValue as string).toLowerCase()}\n`
                   )
+                  break
+                case 'NFTokenIDs':
+                  textFile.write(
+                    `NFToken IDs; ${(formattedValue as string[]).length}\n`
+                  )
+                  for (
+                    let index = 0;
+                    index < (formattedValue as string[]).length;
+                    index++
+                  ) {
+                    const element = (formattedValue as string[])[index]
+                    textFile.write(`NFToken ID; ${element.toLowerCase()}\n`)
+                  }
                   break
                 case 'WalletLocator':
                   textFile.write(
