@@ -4,7 +4,6 @@
   "Owner" : "OWN_ADDR",
   "OfferSequence": 3,
   "Fee": "20",
-  "NetworkID": 21337,
   "Flags": 0,
   "Sequence": 3,
   "SigningPubKey": "OWN_PUBKEY"

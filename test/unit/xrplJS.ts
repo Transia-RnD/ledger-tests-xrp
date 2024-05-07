@@ -6,6 +6,9 @@ import {
   PaymentFlags,
   PaymentFlagsInterface,
   TrustSetFlags,
+  AMMDepositFlags,
+  AMMWithdrawFlags,
+  XChainModifyBridgeFlags,
 } from 'xrpl'
 
 export enum AccountAsfStringFlags {
@@ -22,10 +25,8 @@ export enum AccountAsfStringFlags {
   asfDisallowIncomingCheck = 'Disallow Checks',
   asfDisallowIncomingPayChan = 'Disallow Pay. Channels',
   asfDisallowIncomingTrustline = 'Disallow Trustlines',
+  asfAllowTrustLineClawback = 'Allow Clawback',
   asfAuthorizedNFTokenMinter = 'Authorized NFToken Minter',
-  asfURITokenIssuer = 'URI Token Issuer',
-  asfDisallowIncomingRemit = 'Disallow Remits',
-  asfTshCollect = 'TSH Collect',
   asfAccountTxnID = 'Track Txn ID',
 }
 
@@ -62,6 +63,29 @@ export enum TrustSetStringFlags {
   tfClearNoRipple = 'Clear No Ripple',
   tfSetFreeze = 'Set Freeze',
   tfClearFreeze = 'Clear Freeze',
+}
+
+export enum AmmDepositStringFlags {
+  tfLPToken = 'LP Token',
+  tfSingleAsset = 'Single Asset',
+  tfTwoAsset = 'Two Asset',
+  tfOneAssetLPToken = 'One Asset LP Token',
+  tfLimitLPToken = 'Limit LP Token',
+  tfTwoAssetIfEmpty = 'Two Asset If Empty',
+}
+
+export enum AmmWithdrawStringFlags {
+  tfLPToken = 'LP Token',
+  tfSingleAsset = 'Single Asset',
+  tfTwoAsset = 'Two Asset',
+  tfOneAssetLPToken = 'One Asset LP Token',
+  tfLimitLPToken = 'Limit LP Token',
+  tfWithdrawAll = 'Withdraw All',
+  tfOneAssetWithdrawAll = 'One Asset Withdraw All',
+}
+
+export enum BridgeModifyStringFlags {
+  tfClearAccountCreateAmount = 'Clear Account Create Amount',
 }
 
 function isFlagEnabled(Flags: number, checkFlag: number): boolean {
@@ -203,6 +227,80 @@ export function trustSetFlagsToString(flags: number): string {
           ', ' + TrustSetStringFlags[flag as keyof typeof TrustSetFlags]
       } else {
         flagsString += TrustSetStringFlags[flag as keyof typeof TrustSetFlags]
+      }
+      count += 1
+    }
+  })
+
+  return flagsString
+}
+
+export function ammDepositFlagsToString(flags: number): string {
+  let flagsString = ''
+  let count = 0
+  Object.keys(AMMDepositFlags).forEach((flag: string) => {
+    if (
+      typeof flag === 'string' &&
+      isFlagEnabled(
+        flags,
+        AMMDepositFlags[flag as keyof typeof AMMDepositFlags]
+      )
+    ) {
+      if (count > 0) {
+        flagsString +=
+          ', ' + AmmDepositStringFlags[flag as keyof typeof AMMDepositFlags]
+      } else {
+        flagsString +=
+          AmmDepositStringFlags[flag as keyof typeof AMMDepositFlags]
+      }
+      count += 1
+    }
+  })
+
+  return flagsString
+}
+export function ammWithdrawFlagsToString(flags: number): string {
+  let flagsString = ''
+  let count = 0
+  Object.keys(AMMWithdrawFlags).forEach((flag: string) => {
+    if (
+      typeof flag === 'string' &&
+      isFlagEnabled(
+        flags,
+        AMMWithdrawFlags[flag as keyof typeof AMMWithdrawFlags]
+      )
+    ) {
+      if (count > 0) {
+        flagsString +=
+          ', ' + AmmWithdrawStringFlags[flag as keyof typeof AMMWithdrawFlags]
+      } else {
+        flagsString +=
+          AmmWithdrawStringFlags[flag as keyof typeof AMMWithdrawFlags]
+      }
+      count += 1
+    }
+  })
+
+  return flagsString
+}
+export function bridgeModifyFlagsToString(flags: number): string {
+  let flagsString = ''
+  let count = 0
+  Object.keys(XChainModifyBridgeFlags).forEach((flag: string) => {
+    if (
+      typeof flag === 'string' &&
+      isFlagEnabled(
+        flags,
+        XChainModifyBridgeFlags[flag as keyof typeof XChainModifyBridgeFlags]
+      )
+    ) {
+      if (count > 0) {
+        flagsString +=
+          ', ' +
+          BridgeModifyStringFlags[flag as keyof typeof XChainModifyBridgeFlags]
+      } else {
+        flagsString +=
+          BridgeModifyStringFlags[flag as keyof typeof XChainModifyBridgeFlags]
       }
       count += 1
     }

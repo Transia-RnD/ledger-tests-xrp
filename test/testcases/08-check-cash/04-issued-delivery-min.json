@@ -2,7 +2,6 @@
     "TransactionType": "CheckCash",
     "Account": "OWN_ADDR",
     "Fee": "10",
-    "NetworkID": 21337,
     "Sequence": 39,
     "Flags": 0,
     "DeliverMin": {

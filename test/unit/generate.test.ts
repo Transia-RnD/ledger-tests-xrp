@@ -46,7 +46,7 @@ function formatAmount(amount: any) {
     const decimals = String(xrpAmount).includes('.')
       ? String(String(xrpAmount).split('.').pop()).length
       : 0
-    return `XAH ${xrpAmount.toFixed(decimals)}`
+    return `XRP ${xrpAmount.toFixed(decimals)}`
   }
   if (amount.currency.length > 3) {
     if (amount.currency.includes('000000000000000000000000')) {
@@ -64,7 +64,7 @@ function formatFee(fee: string) {
   const decimals = String(xrpFee).includes('.')
     ? String(String(xrpFee).split('.').pop()).length
     : 0
-  return `XAH ${xrpFee.toFixed(decimals)}`
+  return `XRP ${xrpFee.toFixed(decimals)}`
 }
 
 function formatAccount33(address: string): string {

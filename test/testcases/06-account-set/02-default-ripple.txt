@@ -1,5 +1,4 @@
-Transaction Type; AccountSet
+Transaction Type; Account Set
 Account;   rTooLkitCks     h5mQa67eaa2     JaWHDBnHkpy   
-Fee; XAH 0.000010
-NetworkID; 21337
-Set Flag; 8
+Set Flag; Default Ripple
+Fee; XRP 0.00001

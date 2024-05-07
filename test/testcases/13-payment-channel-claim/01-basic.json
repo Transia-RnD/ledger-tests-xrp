@@ -2,7 +2,6 @@
     "TransactionType": "PaymentChannelClaim",
     "Account": "OWN_ADDR",
     "Fee": "10",
-    "NetworkID": 21337,
     "Flags": 0,
     "Sequence": 25,
     "Amount": "1000000",

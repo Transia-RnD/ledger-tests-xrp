@@ -1,6 +1,6 @@
-Transaction Type; TrustSet
+Transaction Type; Set Trust Line
 Account;   rTooLkitCks     h5mQa67eaa2     JaWHDBnHkpy   
-Fee; XAH 0.000010
-NetworkID; 21337
-Flags; 65536
-Limit Amount; [object Object]
+Flags; Set Auth
+Limit Amount; USD 123
+Issuer;   rsP3mgGb2tcY    UrxiLFiHJiQ     XhsziegtwBc   
+Fee; XRP 0.00001

@@ -1,8 +1,12 @@
-Transaction Type; SetRegularKey
+Transaction Type; Set Regular Key
 Account;   rTooLkitCks     h5mQa67eaa2     JaWHDBnHkpy   
-Fee; XAH 0.000018
-NetworkID; 21337
 Source Tag; 888
-Account Txn I D; F02EB74CB4F5D2E6AC8BE70CEA41CCA872E680F9EFD2027605F0B42666037AA8
-Memos; [object Object],[object Object],[object Object]
-Regular Key; rTooLkitCksh5mQa67eaa2JaWHDBnHkpy
+Account Txn ID; f02eb74cb4f5d2e6ac8be70cea41cca872e680f9efd2027605f0b42666037aa8
+Fee; XRP 0.000018
+Regular Key;   rTooLkitCks     h5mQa67eaa2     JaWHDBnHkpy   
+Memo Data [1]; Developed by Towo Labs
+Memo Type [2]; https://www.xrptoolkit.com
+Memo Data [2]; Towo Labs <3 Hardware wallet
+Memo Type [3]; https://www.xrptoolkit.com
+Memo Data [3]; Towo Labs <3 The XRP Ledger & Interledger Protocol
+Memo Fmt [3]; text/plain

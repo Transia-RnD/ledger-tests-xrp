@@ -1,0 +1,21 @@
+{
+    "TransactionType": "XChainCreateBridge",
+    "Account": "OWN_ADDR",
+    "Fee": "15",
+    "Flags": 0,
+    "XChainBridge": {
+        "LockingChainDoor": "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh",
+        "LockingChainIssue": {
+            "currency": "USD",
+            "issuer": "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh"
+        },
+        "IssuingChainDoor": "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh",
+        "IssuingChainIssue": {
+            "currency": "USD",
+            "issuer": "rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh"
+        }
+    },
+    "SignatureReward": "200",
+    "MinAccountCreateAmount": "10000000",
+    "SigningPubKey": "OWN_PUBKEY"
+}
