@@ -1,7 +1,7 @@
 {
-  "name": "ledger-tests-xah",
+  "name": "ledger-tests-xrp",
   "version": "1.0.0",
-  "description": "Test utility for testing functionality of ledger-app-xah",
+  "description": "Test utility for testing functionality of ledger-app-xrp",
   "scripts": {
     "build": "tsc",
     "test:unit": "LOG_LEVEL=info jest --config=jest.config.unit.js --runInBand",

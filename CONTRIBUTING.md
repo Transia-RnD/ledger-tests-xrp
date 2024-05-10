@@ -15,12 +15,12 @@ Resources:
 
 Clone App-XRP:
 ```sh
-git clone git@github.com:Transia-RnD/app-xah.git
+git clone git@github.com:Transia-RnD/app-xrp.git
 ```
 
 Install Ledger VS-Code extension.
 
-Update settings for app-xah and nanox
+Update settings for app-xrp and nanox
 
 ## Clone Speculos & Build Speculos
 

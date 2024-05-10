@@ -17,7 +17,7 @@ export enum AccountAsfStringFlags {
   asfPasswordSpent = 'Password Spent',
   asfRequireDest = 'Require Dest',
   asfRequireAuth = 'Require Auth',
-  asfDisallowXRP = 'Disallow XAH',
+  asfDisallowXRP = 'Disallow XRP',
   asfDisableMaster = 'Disable Master',
   asfNoFreeze = 'No Freeze',
   asfGlobalFreeze = 'Global Freeze',
@@ -37,8 +37,8 @@ export enum AccountSetStringFlags {
   tfOptionalDestTag = 'Optional Dest Tag',
   tfRequireAuth = 'Require Auth',
   tfOptionalAuth = 'Optional Auth',
-  tfDisallowXRP = 'Disallow XAH',
-  tfAllowXRP = 'Allow XAH',
+  tfDisallowXRP = 'Disallow XRP',
+  tfAllowXRP = 'Allow XRP',
 }
 
 export enum PaymentStringFlags {

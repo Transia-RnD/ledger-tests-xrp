@@ -1,6 +1,6 @@
-# XAH Wallet App Test Suite
+# XRP Wallet App Test Suite
 
-Test utility for testing functionality of [ledger-app-xah](https://github.com/LedgerHQ/ledger-app-xah) targeting Ledger Nano S and Ledger Nano X.
+Test utility for testing functionality of [ledger-app-xrp](https://github.com/LedgerHQ/ledger-app-xah) targeting Ledger Nano S and Ledger Nano X.
 
 ## Usage
 
