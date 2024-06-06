@@ -35,6 +35,16 @@ describe('AMMCreate', () => {
     expect(response.result.engine_result).toMatch('tesSUCCESS')
     await close(testContext.client)
   })
+  it('amm create - dual currency', async () => {
+    const txBlob = await testTransaction(
+      testContext,
+      ledgerContext,
+      'test/fixtures/XX-amm-create/02-dual-currency.json'
+    )
+    const response = await testContext.client.submit(txBlob)
+    expect(response.result.engine_result).toMatch('tesSUCCESS')
+    await close(testContext.client)
+  })
 })
 
 describe('AMMDeposit', () => {
