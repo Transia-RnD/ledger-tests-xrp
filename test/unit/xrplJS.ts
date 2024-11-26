@@ -42,7 +42,7 @@ export enum AccountSetStringFlags {
 }
 
 export enum PaymentStringFlags {
-  tfNoDirectRipple = 'No Direct Ripple',
+  tfNoRippleDirect = 'No Direct Ripple',
   tfPartialPayment = 'Partial Payment',
   tfLimitQuality = 'Limit Quality',
 }

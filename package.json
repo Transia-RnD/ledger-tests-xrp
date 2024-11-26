@@ -10,7 +10,7 @@
     "format": "npx prettier --write ./src"
   },
   "dependencies": {
-    "@ledgerhq/hw-app-xrp": "^6.28.0",
+    "@ledgerhq/hw-app-xrp": "^6.29.4",
     "@ledgerhq/hw-transport-node-speculos": "^6.28.0",
     "@types/chai": "^4.3.14",
     "@types/lodash": "^4.17.0",
@@ -18,7 +18,7 @@
     "dotenv": "^16.4.5",
     "lodash": "^4.17.21",
     "winston": "^3.13.0",
-    "xrpl": "^3.0.0"
+    "xrpl": "^4.0.0"
   },
   "devDependencies": {
     "@tsconfig/node16": "^1.0.3",

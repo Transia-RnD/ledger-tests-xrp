@@ -352,13 +352,6 @@ async function processFixtures(address: string, publicKey: string) {
                 case 'QualityOut':
                   formattedValue = formatQuality(value as number)
                   break
-                // case 'Account':
-                //   const accountValue = (value as string).replace(
-                //     /OWN_ADDR/g,
-                //     address
-                //   )
-                //   formattedValue = formatAccount(accountValue)
-                //   break
                 case 'Owner':
                 case 'Destination':
                 case 'Issuer':
