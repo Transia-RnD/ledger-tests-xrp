@@ -1,28 +1,35 @@
 # Ledger XRP App Contributing
 
-### Run Standalone
+## Building Tests
 
-`xrpld-netgen up:standalone --protocol=xrpl --network_id=1`
+### Create the test fixture
 
-https://github.com/XRPLF/xrpl.js/blob/main/packages/xrpl/test/integration/transactions/xchainAddAccountCreateAttestation.test.ts
+First we need to create a new test fixture. We do this by creating a new folder in the `fixtures` directory with the XX- designation. 
 
-## Building XRP Ledger App
+We only need to create the .json file. 
 
-Resources:
-
-- https://github.com/LedgerHQ/app-boilerplate
-- https://developers.ledger.com/docs/embedded-app/build-load/
-
-Clone App-XRP:
-```sh
-git clone git@github.com:Transia-RnD/app-xrp.git
+```json
+{
+    "TransactionType": "NFTokenBurn",
+    "Account": "OWN_ADDR",
+    "Fee": "15",
+    "Flags": 0,
+    "NFTokenID": "000000003C0E955DFA24367806070434D8BE16A12E410C3B559CFBED00000052",
+    "Sequence": 3,
+    "SigningPubKey": "OWN_PUBKEY"
+}
 ```
 
-Install Ledger VS-Code extension.
+### Create the integration test
 
-Update settings for app-xrp and nanox
+Now create the integration test to match the new fixtures you created. The tests are grouped by the feature. 
 
-## Clone Speculos & Build Speculos
+### Run Speculos and verify correct integration
+
+Once you have successfully ran the integration test and confirmed the txn was successful on the standalone you can move the test fixture into the testcases.
+
+
+## Clone Speculos Build & Push Speculos
 
 Clone Speculos:
 ```sh
@@ -41,16 +48,10 @@ FROM speculos-builder:latest AS builder
 ```
 then
 ```sh
-docker build -t speculos:latest .
+docker build -t transia/speculos:M3 .
 ```
 
-## Run App-XRP with Speculos
+Push to docker hub
 
-Build the App-XRP using the Ledger VS Code extension & copy the bin/app.elf into the speculos/apps directory
+`docker push transia/speculos:M3`
 
-Run speculos with
-```sh
-docker run --rm -it -v $(pwd)/apps:/speculos/apps --publish 40000:40000 --publish 41000:41000 --publish 5001:5001 speculos --display headless --vnc-port 41000 --api-port 5001 --apdu-port 40000 --model nanox --seed "glory promote mansion idle axis finger extra february uncover one trip resource lawn turtle enact monster seven myth punch hobby comfort wild raise skin" apps/app.elf
-```
-
-Then open the browser: http://127.0.0.1:5000 or http://127.0.0.1:5001
