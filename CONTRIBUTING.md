@@ -55,3 +55,29 @@ Push to docker hub
 
 `docker push transia/speculos:M3`
 
+## Running Swap Tests
+
+```
+docker run -it \
+    --user 0 \
+    -v "$(pwd)/build/nanos2/bin/app.elf:/app/build/nanos2/bin/app.elf" \
+    -e NANOX_SDK \
+    app-exchange-image \
+    bash -c 'export BOLOS_SDK=$NANOX_SDK && bash'
+```
+
+```
+sudo apt-get update && sudo apt-get install -y qemu-user-static tesseract-ocr libtesseract-dev
+  pip install -U pip setuptools
+  pip install -r "test/python/requirements.txt"
+  if [[ -f test/python/setup_script.sh ]]; then
+    ./test/python/setup_script.sh
+  fi
+```
+
+```
+pytest test/python/ \
+         --tb=short -v \
+         --device nanosp \
+         -k "XRP or xrp or Ripple or ripple"
+```
